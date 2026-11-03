@@ -1,0 +1,748 @@
+/* 모든 요소 기본 스타일 및 Pretendard 폰트 우선 적용 */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* 전체 배경 및 본문 기본 설정 */
+body {
+  background-color: #f6f8fb;
+  color: #1e293b;
+  line-height: 1.5;
+  padding: 16px 12px;
+}
+
+/* 중앙 정렬 컨테이너 */
+.container {
+  max-width: 960px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* ===================================================
+   상단 헤더 & 새로고침 버튼
+   =================================================== */
+.header {
+  text-align: center;
+  padding: 4px 0;
+}
+
+.header-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.app-badge {
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: #2563eb;
+  background-color: #eff6ff;
+  border: 1px solid #bfdbfe;
+  padding: 4px 10px;
+  border-radius: 20px;
+}
+
+/* 새로고침 버튼 */
+.refresh-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background-color: #ffffff;
+  border: 1px solid #cbd5e1;
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #334155;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+}
+
+.refresh-btn:hover {
+  background-color: #f8fafc;
+  border-color: #94a3b8;
+  color: #0f172a;
+  transform: translateY(-1px);
+}
+
+.refresh-btn.rotating .refresh-icon {
+  animation: spin 0.8s ease;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.header h1 {
+  font-size: 1.85rem;
+  font-weight: 800;
+  color: #0f172a;
+  letter-spacing: -0.5px;
+  margin-bottom: 4px;
+}
+
+.header p {
+  font-size: 0.95rem;
+  color: #64748b;
+}
+
+/* ===================================================
+   지역 선택 셀렉트 바
+   =================================================== */
+.select-section {
+  display: flex;
+  flex-direction: column;
+}
+
+.select-box-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.select-label {
+  font-size: 0.92rem;
+  font-weight: 700;
+  color: #475569;
+}
+
+.sido-select {
+  width: 100%;
+  padding: 13px 16px;
+  font-size: 1.05rem;
+  font-weight: 700;
+  border: 2px solid #e2e8f0;
+  border-radius: 14px;
+  background-color: #ffffff;
+  color: #1e293b;
+  outline: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
+}
+
+.sido-select:focus {
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.15);
+}
+
+/* ===================================================
+   1. 대형 공기 신호등 메인 카드
+   =================================================== */
+.traffic-light-card {
+  background-color: #ffffff;
+  border-radius: 20px;
+  padding: 24px 20px;
+  border: 2px solid #e2e8f0;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.04);
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  transition: all 0.3s ease;
+}
+
+.traffic-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px dashed rgba(0, 0, 0, 0.08);
+  padding-bottom: 10px;
+}
+
+.region-title {
+  font-size: 1.2rem;
+  font-weight: 800;
+  color: #0f172a;
+}
+
+.base-time {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #64748b;
+}
+
+.traffic-main {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  padding: 6px 0;
+}
+
+.traffic-emoji {
+  font-size: 4.2rem;
+  line-height: 1;
+}
+
+.traffic-status-group {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.traffic-grade-text {
+  font-size: 2.1rem;
+  font-weight: 900;
+  line-height: 1.1;
+  letter-spacing: -0.5px;
+}
+
+.traffic-value-container {
+  display: flex;
+  align-items: baseline;
+  gap: 5px;
+}
+
+.traffic-avg-value {
+  font-size: 3rem;
+  font-weight: 900;
+  line-height: 1;
+}
+
+.traffic-unit {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #64748b;
+}
+
+.traffic-advice-box {
+  background-color: #ffffff;
+  border-radius: 12px;
+  padding: 12px 16px;
+  text-align: center;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+.traffic-advice-text {
+  font-size: 1.05rem;
+  font-weight: 700;
+  letter-spacing: -0.3px;
+}
+
+/* 신호등 등급별 테마 */
+.traffic-light-card.theme-good {
+  background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+  border-color: #93c5fd;
+}
+.traffic-light-card.theme-good .traffic-grade-text,
+.traffic-light-card.theme-good .traffic-avg-value { color: #1d4ed8; }
+.traffic-light-card.theme-good .traffic-advice-box { color: #1e40af; border-color: #bfdbfe; }
+
+.traffic-light-card.theme-normal {
+  background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
+  border-color: #86efac;
+}
+.traffic-light-card.theme-normal .traffic-grade-text,
+.traffic-light-card.theme-normal .traffic-avg-value { color: #15803d; }
+.traffic-light-card.theme-normal .traffic-advice-box { color: #166534; border-color: #bbf7d0; }
+
+.traffic-light-card.theme-bad {
+  background: linear-gradient(135deg, #fff7ed 0%, #ffedd5 100%);
+  border-color: #fdba74;
+}
+.traffic-light-card.theme-bad .traffic-grade-text,
+.traffic-light-card.theme-bad .traffic-avg-value { color: #c2410c; }
+.traffic-light-card.theme-bad .traffic-advice-box { color: #9a3412; border-color: #fed7aa; }
+
+.traffic-light-card.theme-very-bad {
+  background: linear-gradient(135deg, #fef2f2 0%, #fee2e2 100%);
+  border-color: #fca5a5;
+}
+.traffic-light-card.theme-very-bad .traffic-grade-text,
+.traffic-light-card.theme-very-bad .traffic-avg-value { color: #b91c1c; }
+.traffic-light-card.theme-very-bad .traffic-advice-box { color: #991b1b; border-color: #fecaca; }
+
+.traffic-light-card.theme-neutral {
+  background: #ffffff;
+  border-color: #e2e8f0;
+}
+.traffic-light-card.theme-neutral .traffic-grade-text,
+.traffic-light-card.theme-neutral .traffic-avg-value { color: #64748b; }
+
+/* ===================================================
+   2. 최고(Best) vs 최악(Worst) 하이라이트 카드
+   =================================================== */
+.highlight-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 14px;
+}
+
+.highlight-card {
+  border-radius: 16px;
+  padding: 18px 20px;
+  background-color: #ffffff;
+  border: 2px solid transparent;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.04);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  transition: transform 0.2s ease;
+}
+
+.highlight-card:hover {
+  transform: translateY(-2px);
+}
+
+.highlight-tag {
+  display: inline-block;
+  font-size: 0.8rem;
+  font-weight: 800;
+  padding: 4px 10px;
+  border-radius: 8px;
+}
+
+/* Best: 청정 카드 스타일 */
+.best-card {
+  border-color: #86efac;
+  background: linear-gradient(135deg, #ffffff 0%, #f0fdf4 100%);
+}
+.best-tag {
+  background-color: #dcfce7;
+  color: #166534;
+}
+
+/* Worst: 주의 카드 스타일 */
+.worst-card {
+  border-color: #fdba74;
+  background: linear-gradient(135deg, #ffffff 0%, #fff7ed 100%);
+}
+.worst-tag {
+  background-color: #ffedd5;
+  color: #9a3412;
+}
+
+.highlight-station {
+  font-size: 1.35rem;
+  font-weight: 800;
+  color: #0f172a;
+}
+
+.highlight-val-wrap {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+}
+
+.highlight-value {
+  font-size: 1.8rem;
+  font-weight: 900;
+  color: #0f172a;
+}
+
+.highlight-grade-badge {
+  font-size: 0.82rem;
+  font-weight: 800;
+  padding: 3px 10px;
+  border-radius: 14px;
+  color: #ffffff;
+}
+
+.highlight-detail {
+  font-size: 0.85rem;
+  color: #64748b;
+  font-weight: 500;
+}
+
+/* ===================================================
+   3. 대기질 등급 분포 인포그래픽 바
+   =================================================== */
+.distribution-section {
+  background-color: #ffffff;
+  border-radius: 18px;
+  padding: 20px;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.03);
+}
+
+.dist-bar-track {
+  height: 18px;
+  background-color: #f1f5f9;
+  border-radius: 12px;
+  overflow: hidden;
+  display: flex;
+  margin: 14px 0 12px 0;
+}
+
+.dist-bar-seg {
+  height: 100%;
+  transition: width 0.6s ease;
+}
+
+.dist-good { background-color: #3b82f6; }
+.dist-normal { background-color: #22c55e; }
+.dist-bad { background-color: #f97316; }
+.dist-very-bad { background-color: #ef4444; }
+
+.dist-legend {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 8px;
+  font-size: 0.88rem;
+  color: #475569;
+}
+
+.legend-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.dot-good { background-color: #3b82f6; }
+.dot-normal { background-color: #22c55e; }
+.dot-bad { background-color: #f97316; }
+.dot-very-bad { background-color: #ef4444; }
+
+/* ===================================================
+   4. 생활 맞춤 행동 지수 카드
+   =================================================== */
+.lifestyle-section {
+  background-color: #ffffff;
+  border-radius: 18px;
+  padding: 20px;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.03);
+}
+
+.lifestyle-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+  margin-top: 14px;
+}
+
+.life-card {
+  background-color: #f8fafc;
+  border-radius: 14px;
+  padding: 14px 12px;
+  text-align: center;
+  border: 1px solid #e2e8f0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.life-icon {
+  font-size: 1.8rem;
+  line-height: 1;
+  margin-bottom: 2px;
+}
+
+.life-title {
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: #64748b;
+}
+
+.life-status {
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: #0f172a;
+}
+
+.life-desc {
+  font-size: 0.75rem;
+  color: #94a3b8;
+  font-weight: 500;
+}
+
+/* ===================================================
+   5. 가로 막대그래프 섹션
+   =================================================== */
+.chart-section {
+  background: #ffffff;
+  border-radius: 18px;
+  padding: 20px;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.03);
+}
+
+.chart-container {
+  position: relative;
+  width: 100%;
+  min-height: 360px;
+  margin-top: 10px;
+}
+
+/* ===================================================
+   6. 검색, 필터 툴바 & 측정소 카드 목록
+   =================================================== */
+.stations-section {
+  margin-top: 6px;
+}
+
+.section-title-wrap {
+  margin-bottom: 6px;
+}
+
+.section-title-wrap h2 {
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: #0f172a;
+  letter-spacing: -0.5px;
+}
+
+.section-subtitle {
+  font-size: 0.85rem;
+  color: #64748b;
+  font-weight: 500;
+}
+
+/* 검색 & 필터 툴바 */
+.filter-toolbar {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin: 14px 0 18px 0;
+}
+
+.search-wrap {
+  position: relative;
+  width: 100%;
+}
+
+.search-icon {
+  position: absolute;
+  left: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 1rem;
+  color: #94a3b8;
+}
+
+.search-input {
+  width: 100%;
+  padding: 12px 16px 12px 40px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  border: 2px solid #e2e8f0;
+  border-radius: 12px;
+  background-color: #ffffff;
+  color: #0f172a;
+  outline: none;
+  transition: all 0.2s ease;
+}
+
+.search-input:focus {
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
+}
+
+/* 필터 칩 버튼 그룹 */
+.filter-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.filter-chip {
+  padding: 8px 14px;
+  border-radius: 20px;
+  border: 1px solid #cbd5e1;
+  background-color: #ffffff;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #475569;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.filter-chip:hover {
+  background-color: #f1f5f9;
+  border-color: #94a3b8;
+}
+
+.filter-chip.active {
+  background-color: #0f172a;
+  border-color: #0f172a;
+  color: #ffffff;
+}
+
+/* 측정소 카드 그리드 */
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 16px;
+}
+
+/* 선명한 등급 컬러 풀 채움 카드 */
+.station-card {
+  border-radius: 16px;
+  padding: 18px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  color: #ffffff;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+}
+
+.station-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.25);
+}
+
+.station-name {
+  font-size: 1.2rem;
+  font-weight: 800;
+  color: #ffffff;
+  letter-spacing: -0.3px;
+}
+
+.grade-badge {
+  font-size: 0.85rem;
+  font-weight: 800;
+  padding: 4px 12px;
+  border-radius: 20px;
+  color: #ffffff;
+  background-color: rgba(255, 255, 255, 0.25);
+  backdrop-filter: blur(6px);
+  border: 1px solid rgba(255, 255, 255, 0.35);
+}
+
+.card-body {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 14px;
+}
+
+.data-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.95rem;
+}
+
+.data-label {
+  color: rgba(255, 255, 255, 0.88);
+  font-weight: 600;
+}
+
+.data-value {
+  color: #ffffff;
+  font-weight: 800;
+  font-size: 1.05rem;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.card-footer {
+  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.85);
+  text-align: right;
+  font-weight: 500;
+  border-top: 1px solid rgba(255, 255, 255, 0.15);
+  padding-top: 8px;
+}
+
+/* 등급별 꽉 찬 카드 배경 그라데이션 */
+.station-card.card-grade-good {
+  background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+  box-shadow: 0 4px 16px rgba(37, 99, 235, 0.3);
+}
+
+.station-card.card-grade-normal {
+  background: linear-gradient(135deg, #22c55e 0%, #15803d 100%);
+  box-shadow: 0 4px 16px rgba(22, 163, 74, 0.3);
+}
+
+.station-card.card-grade-bad {
+  background: linear-gradient(135deg, #f97316 0%, #c2410c 100%);
+  box-shadow: 0 4px 16px rgba(234, 88, 12, 0.3);
+}
+
+.station-card.card-grade-very-bad {
+  background: linear-gradient(135deg, #ef4444 0%, #b91c1c 100%);
+  box-shadow: 0 4px 16px rgba(220, 38, 38, 0.3);
+}
+
+.station-card.card-grade-unknown {
+  background: linear-gradient(135deg, #94a3b8 0%, #475569 100%);
+  box-shadow: 0 4px 16px rgba(100, 116, 139, 0.25);
+}
+
+.status-message {
+  text-align: center;
+  padding: 30px 16px;
+  font-size: 1rem;
+  color: #475569;
+  font-weight: 700;
+}
+
+/* ===================================================
+   반응형 스타일 조정 (태블릿 & PC)
+   =================================================== */
+@media (min-width: 640px) {
+  body {
+    padding: 24px 20px;
+  }
+
+  .header h1 {
+    font-size: 2.3rem;
+  }
+
+  .traffic-light-card {
+    padding: 30px;
+  }
+
+  .traffic-emoji {
+    font-size: 5rem;
+  }
+
+  .traffic-grade-text {
+    font-size: 2.5rem;
+  }
+
+  .traffic-avg-value {
+    font-size: 3.6rem;
+  }
+
+  .highlight-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .lifestyle-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  .filter-toolbar {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .search-wrap {
+    max-width: 320px;
+  }
+
+  .chart-container {
+    min-height: 400px;
+  }
+}

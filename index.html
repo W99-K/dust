@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<!-- 한국어 문서 설정 -->
+<html lang="ko">
+<head>
+  <!-- 문자 인코딩 설정 -->
+  <meta charset="UTF-8">
+  <!-- 모바일 및 태블릿 반응형 뷰포트 설정 -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>실시간 공기 신호등 - 대기오염 통합 대시보드</title>
+  <!-- Pretendard 웹폰트 CDN -->
+  <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css">
+  <!-- 스타일시트 연결 -->
+  <link rel="stylesheet" href="style.css">
+  <!-- Chart.js CDN 라이브러리 -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+  <div class="container">
+    <!-- 상단 헤더 및 새로고침 컨트롤 -->
+    <header class="header">
+      <div class="header-top">
+        <span class="app-badge">실시간 에어케어</span>
+        <button id="refreshBtn" class="refresh-btn" title="데이터 새로고침" aria-label="새로고침">
+          <span class="refresh-icon">🔄</span>
+          <span class="refresh-text">새로고침</span>
+        </button>
+      </div>
+      <h1>🚦 실시간 공기 신호등</h1>
+      <p>한국환경공단 에어코리아 실시간 대기질 통합 정보</p>
+    </header>
+
+    <!-- 시도 선택 컨트롤 바 -->
+    <section class="select-section">
+      <div class="select-box-wrap">
+        <label for="sidoSelect" class="select-label">조회 지역</label>
+        <select id="sidoSelect" class="sido-select">
+          <option value="전국">전국</option>
+          <option value="서울" selected>서울</option>
+          <option value="부산">부산</option>
+          <option value="대구">대구</option>
+          <option value="인천">인천</option>
+          <option value="광주">광주</option>
+          <option value="대전">대전</option>
+          <option value="울산">울산</option>
+          <option value="세종">세종</option>
+          <option value="경기">경기</option>
+          <option value="강원">강원</option>
+          <option value="충북">충북</option>
+          <option value="충남">충남</option>
+          <option value="전북">전북</option>
+          <option value="전남">전남</option>
+          <option value="경북">경북</option>
+          <option value="경남">경남</option>
+          <option value="제주">제주</option>
+        </select>
+      </div>
+    </section>
+
+    <!-- 1. 대형 공기 신호등 메인 대시보드 -->
+    <section id="trafficLightCard" class="traffic-light-card theme-neutral">
+      <div class="traffic-header">
+        <span class="region-title"><span id="selectedRegionName">서울</span> 종합 대기질</span>
+        <span id="baseTimeText" class="base-time">- 기준</span>
+      </div>
+
+      <div class="traffic-main">
+        <span id="trafficEmoji" class="traffic-emoji">⏳</span>
+        <div class="traffic-status-group">
+          <span id="trafficGradeText" class="traffic-grade-text">불러오는 중...</span>
+          <div class="traffic-value-container">
+            <span id="trafficAvgValue" class="traffic-avg-value">-</span>
+            <span class="traffic-unit">㎍/㎥ (PM10 평균)</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="traffic-advice-box">
+        <p id="trafficAdviceText" class="traffic-advice-text">실시간 대기오염 정보를 분석하고 있습니다...</p>
+      </div>
+    </section>
+
+    <!-- 2. 지역 내 최고(Best) vs 최악(Worst) 하이라이트 카드 -->
+    <section class="highlight-section">
+      <div class="highlight-grid">
+        <!-- Best 카드: 가장 맑은 곳 -->
+        <div class="highlight-card best-card">
+          <div class="highlight-badge-wrap">
+            <span class="highlight-tag best-tag">🌿 가장 맑은 곳 (Best)</span>
+          </div>
+          <div class="highlight-content">
+            <h3 id="bestStationName" class="highlight-station">-</h3>
+            <div class="highlight-val-wrap">
+              <span id="bestStationValue" class="highlight-value">-</span>
+              <span id="bestStationGrade" class="highlight-grade-badge">-</span>
+            </div>
+            <p id="bestStationDetail" class="highlight-detail">초미세먼지 정보 수집 중</p>
+          </div>
+        </div>
+
+        <!-- Worst 카드: 가장 주의할 곳 -->
+        <div class="highlight-card worst-card">
+          <div class="highlight-badge-wrap">
+            <span class="highlight-tag worst-tag">⚠️ 가장 주의할 곳 (Worst)</span>
+          </div>
+          <div class="highlight-content">
+            <h3 id="worstStationName" class="highlight-station">-</h3>
+            <div class="highlight-val-wrap">
+              <span id="worstStationValue" class="highlight-value">-</span>
+              <span id="worstStationGrade" class="highlight-grade-badge">-</span>
+            </div>
+            <p id="worstStationDetail" class="highlight-detail">초미세먼지 정보 수집 중</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3. 대기질 등급 분포 인포그래픽 바 -->
+    <section class="distribution-section">
+      <div class="section-title-wrap">
+        <h2>📈 지역 대기질 분포 비율</h2>
+        <span id="distSummaryText" class="section-subtitle">전체 측정소의 등급 분포 현황</span>
+      </div>
+      <!-- 멀티 컬러 프로그레스 바 -->
+      <div class="dist-bar-track">
+        <div id="distBarGood" class="dist-bar-seg dist-good" style="width: 0%" title="좋음"></div>
+        <div id="distBarNormal" class="dist-bar-seg dist-normal" style="width: 0%" title="보통"></div>
+        <div id="distBarBad" class="dist-bar-seg dist-bad" style="width: 0%" title="나쁨"></div>
+        <div id="distBarVeryBad" class="dist-bar-seg dist-very-bad" style="width: 0%" title="매우나쁨"></div>
+      </div>
+      <!-- 범례 및 개수 표시 -->
+      <div class="dist-legend">
+        <span class="legend-item"><span class="dot dot-good"></span>좋음 <strong id="countGood">0</strong>곳</span>
+        <span class="legend-item"><span class="dot dot-normal"></span>보통 <strong id="countNormal">0</strong>곳</span>
+        <span class="legend-item"><span class="dot dot-bad"></span>나쁨 <strong id="countBad">0</strong>곳</span>
+        <span class="legend-item"><span class="dot dot-very-bad"></span>매우나쁨 <strong id="countVeryBad">0</strong>곳</span>
+      </div>
+    </section>
+
+    <!-- 4. 생활 맞춤 행동 요령 퀵 인디케이터 (환기/운동/마스크/세차) -->
+    <section class="lifestyle-section">
+      <div class="section-title-wrap">
+        <h2>💡 오늘 생활 행동 지수</h2>
+        <span class="section-subtitle">실시간 대기 상태에 맞춘 추천 활동 가이드</span>
+      </div>
+      <div class="lifestyle-grid">
+        <div class="life-card">
+          <span class="life-icon">🪟</span>
+          <span class="life-title">실내 환기</span>
+          <span id="lifeVentText" class="life-status">분석 중</span>
+          <p id="lifeVentDesc" class="life-desc">적정 환기 시간 확인</p>
+        </div>
+        <div class="life-card">
+          <span class="life-icon">🏃</span>
+          <span class="life-title">야외 운동</span>
+          <span id="lifeExerciseText" class="life-status">분석 중</span>
+          <p id="lifeExerciseDesc" class="life-desc">운동 적합도</p>
+        </div>
+        <div class="life-card">
+          <span class="life-icon">😷</span>
+          <span class="life-title">마스크 권고</span>
+          <span id="lifeMaskText" class="life-status">분석 중</span>
+          <p id="lifeMaskDesc" class="life-desc">외출 시 필수 여부</p>
+        </div>
+        <div class="life-card">
+          <span class="life-icon">🚗</span>
+          <span class="life-title">차량 세차</span>
+          <span id="lifeWashText" class="life-status">분석 중</span>
+          <p id="lifeWashDesc" class="life-desc">세차 추천도</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 5. 가로 막대그래프 (상위 10개 주의 측정소) -->
+    <section class="chart-section">
+      <div class="section-title-wrap">
+        <h2>📊 미세먼지 수치 높은 순 Top 10</h2>
+        <span class="section-subtitle">상위 10개 측정소 (미세먼지 PM10 기준, 결측치 제외)</span>
+      </div>
+      <div class="chart-container">
+        <canvas id="dustChart"></canvas>
+      </div>
+    </section>
+
+    <!-- 6. 측정소 검색, 필터링 및 카드 목록 -->
+    <section class="stations-section">
+      <div class="section-title-wrap">
+        <h2>📍 상세 측정소 목록</h2>
+        <span id="stationCountText" class="section-subtitle">측정소 목록</span>
+      </div>
+
+      <!-- 검색창 및 등급 필터 칩 툴바 -->
+      <div class="filter-toolbar">
+        <!-- 검색창 -->
+        <div class="search-wrap">
+          <span class="search-icon">🔍</span>
+          <input type="text" id="stationSearchInput" class="search-input" placeholder="측정소명 검색 (예: 종로, 강남)">
+        </div>
+
+        <!-- 등급 필터 칩 버튼들 -->
+        <div class="filter-chips">
+          <button class="filter-chip active" data-grade="all">전체</button>
+          <button class="filter-chip" data-grade="1">🔵 좋음</button>
+          <button class="filter-chip" data-grade="2">🟢 보통</button>
+          <button class="filter-chip" data-grade="3">🟠 나쁨</button>
+          <button class="filter-chip" data-grade="4">🔴 매우나쁨</button>
+        </div>
+      </div>
+
+      <!-- 로딩 및 안내 메시지 -->
+      <div id="statusMessage" class="status-message"></div>
+
+      <!-- 카드 그리드 -->
+      <div id="cardContainer" class="card-grid"></div>
+    </section>
+  </div>
+
+  <!-- 스크립트 연결 -->
+  <script src="script.js"></script>
+</body>
+</html>
